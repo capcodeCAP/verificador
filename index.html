@@ -2,124 +2,62 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Verificação de Dados</title>
+  <title>Redirecionando para capCode 🚀</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      padding: 40px;
-      background-color: #fff5f5;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
       color: #3a0e0e;
+      text-align: center;
     }
-    h2 {
+    h1 {
+      font-size: 3rem;
       margin-bottom: 20px;
     }
-    input {
-      padding: 15px 20px;
-      font-size: 20px;
-      width: 300px;
-      border: 1px solid #a80000;
-      border-radius: 6px;
-      margin-right: 10px;
+    p {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
     }
-    button {
-      padding: 15px 25px;
-      font-size: 20px;
+    .button {
+      background-color: #a80000;
+      color: white;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      font-weight: bold;
       border: none;
-      border-radius: 6px;
-      background-color: #a80000;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    button:hover {
-      background-color: #7a0000;
-    }
-    #resultado {
-      background: #ffe5e5;
-      padding: 20px;
-      margin-top: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      min-height: 80px;
-      white-space: pre-line;
-      font-size: 18px;
-    }
-    .header-box {
-      display: flex;
-      align-items: center;
-      background-color: #a80000;
-      padding: 10px;
       border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, background-color 0.3s;
     }
-    .header-box img {
-      height: 150px;
-      margin-right: 15px;
+    .button:hover {
+      background-color: #7a0000;
+      transform: scale(1.05);
     }
-    .header-box span {
-      color: white;
-      font-size: 32px;
-      font-weight: bold;
+    .emoji {
+      font-size: 3rem;
+      margin-bottom: 20px;
     }
   </style>
+
+  <meta http-equiv="refresh" content="3; url=https://script.google.com/macros/s/AKfycbwmdPVMSZhaOtbT4dWoiRBxNOcXWExizwbmsNk4GXs1o6wMpJczib3yCbT6Xm5caoU/exec">
+  <script>
+    // Redirecionamento imediato via JS (backup)
+    setTimeout(() => {
+      window.location.href = "https://script.google.com/macros/s/AKfycbwmdPVMSZhaOtbT4dWoiRBxNOcXWExizwbmsNk4GXs1o6wMpJczib3yCbT6Xm5caoU/exec";
+    }, 3000); // 3 segundos
+  </script>
 </head>
 <body>
-  <h2>
-    <div class="header-box">
-      <img src="https://github.com/capcodeCAP/capCodeGirls/blob/main/Costas_centralizado_grande%20(2).png?raw=true" alt="Logo">
-      <span>Verificação de Dados N</span>
-    </div>
-  </h2>
-
-  <label for="verificador" style="font-weight:bold; font-size:22px;">
-    Número do verificador cc:
-  </label>
-  <input type="text" id="verificador" placeholder="Digite o número" 
-         onkeydown="if(event.key === 'Enter'){ verificar(); }">
-  <button onclick="verificar()">Verificar</button>
-
-  <div id="resultado">
-    🔗 Conexão estabelecida!  
-    🕵️‍♂️ Pronto para verificar os dados.
-  </div>
-
-  <script>
-    // ⚠️ TROQUE pela URL do seu Apps Script publicado
-    const API_URL = "https://script.google.com/macros/s/AKfycbyRTfvd5_rXNk16Bk3iEU74wN1wMp2C0vBJrQ1BADKO0GRFA83j6lNeLktwyzDbo2c0/exec";
-      
-
-    function verificar() {
-      const verificador = document.getElementById("verificador").value.trim();
-      const resultado = document.getElementById("resultado");
-
-      if (verificador === "") {
-        resultado.textContent = "Digite um verificador!";
-        return;
-      }
-
-      resultado.textContent = "Verificando...";
-
-      fetch(API_URL + "?verificador=" + encodeURIComponent(verificador))
-        .then(res => res.json())
-        .then(data => {
-          if (data.encontrado) {
-            resultado.innerHTML = `
-              <table style="border-collapse: collapse; width:100%; font-size:18px;">
-                <tr><th style="background:#a80000;color:#fff;padding:8px;">📌 Nome</th><td style="padding:8px;">${data.nome}</td></tr>
-                <tr><th style="background:#a80000;color:#fff;padding:8px;">⏰ Horas</th><td style="padding:8px;">${data.horas}</td></tr>
-                <tr><th style="background:#a80000;color:#fff;padding:8px;">💼 Função</th><td style="padding:8px;">${data.funcao}</td></tr>
-                <tr><th style="background:#a80000;color:#fff;padding:8px;">📝 Documento</th><td style="padding:8px;">${data.documento}</td></tr>
-                <tr><th style="background:#a80000;color:#fff;padding:8px;">📅 Data</th><td style="padding:8px;">${data.data}</td></tr>
-              </table>
-            `;
-          } else {
-            resultado.textContent = "⚠️ Verificador não encontrado.";
-          }
-        })
-        .catch(err => {
-          resultado.textContent = "❌ Erro na conexão: " + err;
-        });
-    }
-  </script>
+  <div class="emoji">🚀</div>
+  <h1>Redirecionando para capCode</h1>
+  <p>Você será redirecionado em alguns segundos...</p>
+  <a class="button" href="https://script.google.com/macros/s/AKfycbwmdPVMSZhaOtbT4dWoiRBxNOcXWExizwbmsNk4GXs1o6wMpJczib3yCbT6Xm5caoU/exec">Ir agora</a>
 </body>
 </html>
