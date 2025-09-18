@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Verificação de Dados</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background-color: #fff5f5;
+      color: #3a0e0e;
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+    input {
+      padding: 15px 20px;
+      font-size: 20px;
+      width: 300px;
+      border: 1px solid #a80000;
+      border-radius: 6px;
+      margin-right: 10px;
+    }
+    button {
+      padding: 15px 25px;
+      font-size: 20px;
+      border: none;
+      border-radius: 6px;
+      background-color: #a80000;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #7a0000;
+    }
+    #resultado {
+      background: #ffe5e5;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      min-height: 80px;
+      white-space: pre-line;
+      font-size: 18px;
+    }
+    .header-box {
+      display: flex;
+      align-items: center;
+      background-color: #a80000;
+      padding: 10px;
+      border-radius: 10px;
+    }
+    .header-box img {
+      height: 150px;
+      margin-right: 15px;
+    }
+    .header-box span {
+      color: white;
+      font-size: 32px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2>
+    <div class="header-box">
+      <img src="https://github.com/capcodeCAP/capCodeGirls/blob/main/Costas_centralizado_grande%20(2).png?raw=true" alt="Logo">
+      <span>Verificação de Dados</span>
+    </div>
+  </h2>
+
+  <label for="verificador" style="font-weight:bold; font-size:22px;">
+    Número do verificador:
+  </label>
+  <input type="text" id="verificador" placeholder="Digite o número" 
+         onkeydown="if(event.key === 'Enter'){ verificar(); }">
+  <button onclick="verificar()">Verificar</button>
+
+  <div id="resultado">
+    🔗 Conexão estabelecida!  
+    🕵️‍♂️ Pronto para verificar os dados.
+  </div>
+
+  <script>
+    // ⚠️ TROQUE pela URL do seu Apps Script publicado
+    const API_URL = "https://script.google.com/macros/s/AKfycbx1234567890/exec";
+
+    function verificar() {
+      const verificador = document.getElementById("verificador").value.trim();
+      const resultado = document.getElementById("resultado");
+
+      if (verificador === "") {
+        resultado.textContent = "Digite um verificador!";
+        return;
+      }
+
+      resultado.textContent = "Verificando...";
+
+      fetch(API_URL + "?verificador=" + encodeURIComponent(verificador))
+        .then(res => res.json())
+        .then(data => {
+          if (data.encontrado) {
+            resultado.innerHTML = `
+              <table style="border-collapse: collapse; width:100%; font-size:18px;">
+                <tr><th style="background:#a80000;color:#fff;padding:8px;">📌 Nome</th><td style="padding:8px;">${data.nome}</td></tr>
+                <tr><th style="background:#a80000;color:#fff;padding:8px;">⏰ Horas</th><td style="padding:8px;">${data.horas}</td></tr>
+                <tr><th style="background:#a80000;color:#fff;padding:8px;">💼 Função</th><td style="padding:8px;">${data.funcao}</td></tr>
+                <tr><th style="background:#a80000;color:#fff;padding:8px;">📝 Documento</th><td style="padding:8px;">${data.documento}</td></tr>
+                <tr><th style="background:#a80000;color:#fff;padding:8px;">📅 Data</th><td style="padding:8px;">${data.data}</td></tr>
+              </table>
+            `;
+          } else {
+            resultado.textContent = "⚠️ Verificador não encontrado.";
+          }
+        })
+        .catch(err => {
+          resultado.textContent = "❌ Erro na conexão: " + err;
+        });
+    }
+  </script>
+</body>
+</html>
